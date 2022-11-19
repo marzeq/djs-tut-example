@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 class Bot extends Client {
-  protected commands = new Collection<string, Command>()
+  public readonly commands = new Collection<string, Command>()
 
   public async start() {
     await this.application?.commands.set(Array.from(this.commands.values()))
