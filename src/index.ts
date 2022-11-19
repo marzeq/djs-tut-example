@@ -58,7 +58,7 @@ const loadModules = async (modules: Module[], client: Bot) => {
 
 const main = async () => {
   const client = new Bot({
-    intents: ["Guilds"]
+    intents: ["Guilds", "GuildMessageReactions"]
   })
 
   await loadModules([
