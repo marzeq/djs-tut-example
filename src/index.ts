@@ -69,7 +69,7 @@ const main = async () => {
     throw new Error("No token provided")
   }
 
-  client.login(process.env.TOKEN)
+  client.start()
 }
 
 main().catch(console.error)
