@@ -5,6 +5,33 @@ dotenv.config()
 
 class Bot extends Client {
   protected commands = new Collection<string, Command>()
+
+  public async start() {
+    await this.application?.commands.set(Array.from(this.commands.values()))
+  
+    this.on("interactionCreate", async interaction => {
+      if (!interaction.isChatInputCommand()) return
+  
+      const command = this.commands.get(interaction.commandName)
+  
+      if (!command) {
+        await interaction.reply({
+          content: "Command not found",
+          ephemeral: true,
+        })
+        return
+      }
+  
+      try {
+        await command.run(interaction)
+      } catch (error) {
+        console.error(error)
+        await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true })
+      }
+    })
+  
+    await this.login(process.env.TOKEN)
+  }
 }
 
 export type BotType = Bot
