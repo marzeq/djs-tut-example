@@ -8,4 +8,11 @@ export const module = async (client: BotType) => {
       await interaction.reply("Pong!")
     },
   })
+
+  client.on("reactionAdd", async (reaction, user) => {
+    if (reaction.emoji.name !== "👍") return
+    if (user.bot) return // important to prevent infinite loops
+  
+    await reaction.message.react("👍")
+  })
 }
